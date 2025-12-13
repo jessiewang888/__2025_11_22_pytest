@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Greeting App</title>
+</head>
+<body>
+  <h1>Enter your name:</h1>
+  <input type="text" id="nameInput">
+  <button onclick="sendName()">Submit</button>
+  <h2 id="greeting"></h2>
+
+  <script>
+    async function sendName() {
+      const name = document.getElementById("nameInput").value;
+      const response = await fetch("http://127.0.0.1:8000/api/greet", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: name })
+      });
+
+      const data = await response.json();
+      document.getElementById("greeting").innerText = data.message;
+    }
+  </script>
+</body>
+</html>
+
